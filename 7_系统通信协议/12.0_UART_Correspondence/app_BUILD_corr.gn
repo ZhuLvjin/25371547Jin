@@ -1,0 +1,22 @@
+# ============================================================
+# app_BUILD_corr.gn —— 上层 app/BUILD.gn 注册模板
+# ============================================================
+# 使用方法:
+#   打开 OpenHarmony 源码的:
+#   applications/sample/wifi-iot/app/BUILD.gn
+#   在 features 数组中加一行(注意逗号!):
+#
+#   import("//build/lite/config/component/lite_component.gni")
+#   lite_component("app") {
+#       features = [
+#           "1.0_Hello_World:hello_world",
+#           # ... 已有的其他 feature ...
+#           "12.0_UART_Correspondence:correspondence",   # <<< 加上这一行
+#       ]
+#   }
+#
+# 然后回到源码根目录执行:
+#   python3 build.py wifiiot
+# 看到 BUILD SUCCESS 后, 用 HiBurn 烧录 out/wifiiot/ 下的
+#   Hi3861_loader_signed.bin + Hi3861_wifiiot_app_allinone.bin + Hi3861_boot_signed_B.bin
+# ============================================================

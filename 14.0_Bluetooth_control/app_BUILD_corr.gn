@@ -1,0 +1,32 @@
+# ============================================================
+# 14.0_Bluetooth_control —— 注册说明(两处都要改!)
+# ============================================================
+# ① 打开 OpenHarmony 源码的:
+#    applications/sample/wifi-iot/app/BUILD.gn
+#    在 features 数组中加一行(注意逗号):
+#
+#   features = [
+#       ...
+#       "14.0_Bluetooth_control:Control",   # <<< 加上这一行
+#   ]
+#
+# ② 【重要】修改事件关联(两个串口同时使用必须改,否则第二个串口初始化失败!):
+#    打开:
+#    vendor/hisi/hi3861/hi3861/app/wifiiot_app/src/main.c
+#    把 APP_INIT_EVENT_NUM 从 5 改成 7:
+#
+#    #define APP_INIT_EVENT_NUM   7      ← 原来是 5
+#    #define APP_INIT_VAP_NUM     2
+#    #define APP_INIT_USR_NUM     6
+#    #define APP_INIT_CMD_NUM     2
+#
+# ③ 编译 + 烧录:
+#    python3 build.py wifiiot     (看到 BUILD SUCCESS)
+#    HiBurn 烧 loader + boot + app 三个 bin
+#
+# ④ 手机操作:
+#    装"蓝牙调试器"APP → 打开蓝牙, 连接 JDY-16 模块 → 发送字符:
+#    W=前进  S=后退  A=左转  D=右转  O=停止  Z=一套系列动作(学生任务示例)
+#
+# ⑤ STM32 端不用改: 烧 7_系统通信协议 固件(已能解析 0xFC 协议帧)
+# ============================================================
